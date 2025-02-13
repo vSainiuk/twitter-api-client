@@ -14,13 +14,17 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 require("dotenv/config");
 const twitterClient_1 = __importDefault(require("./twitterClient"));
-const AUTH_TOKEN = process.env.AUTH_TOKEN || '';
+const auth_token = process.env.AUTH_TOKEN || '';
 const ct0 = process.env.ct0 || '';
 const bearerToken = process.env.bearerToken || '';
 const ourEndpoint = 'badge_count/badge_count.json?supports_ntab_urt=1';
 (function run() {
     return __awaiter(this, void 0, void 0, function* () {
-        const client = (0, twitterClient_1.default)(AUTH_TOKEN, ct0, bearerToken);
+        const client = (0, twitterClient_1.default)({
+            auth_token,
+            ct0,
+            bearerToken,
+        });
         try {
             const response = yield client.get(ourEndpoint);
             console.log('response', JSON.stringify(response.data));
